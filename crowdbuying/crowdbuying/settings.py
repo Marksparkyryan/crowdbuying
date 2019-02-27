@@ -21,12 +21,36 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets.SECRET_KEY
+SECRET_KEY = """
+Two things are wrong with Django's default `SECRET_KEY` system:
+1. It is not random but pseudo-random
+2. It saves and displays the SECRET_KEY in `settings.py`
+This snippet
+1. uses `SystemRandom()` instead to generate a random key
+2. saves a local `secret.txt`
+The result is a random and safely hidden `SECRET_KEY`.
+"""
+try:
+    SECRET_KEY
+except NameError:
+    SECRET_FILE = os.path.join(PROJECT_PATH, 'secret.txt')
+    try:
+        SECRET_KEY = open(SECRET_FILE).read().strip()
+    except IOError:
+        try:
+            import random
+            SECRET_KEY = ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
+            secret = file(SECRET_FILE, 'w')
+            secret.write(SECRET_KEY)
+            secret.close()
+        except IOError:
+            Exception('Please create a %s file with random characters \
+            to generate your secret key!' % SECRET_FILE)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crowdbuying-marksparkyryan941757.codeanyapp.com']
 
 
 # Application definition
@@ -122,3 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "thanks"
+
+AUTH_USER_MODEL = "accounts.Customer"

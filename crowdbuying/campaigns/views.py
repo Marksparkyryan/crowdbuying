@@ -1,14 +1,13 @@
 #campaigns.view
 
 # Create your views here.
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import DetailView
+from . import models
 
 
 
 class CampaignDetail(DetailView):
 	
 	template_name = 'campaigns/campaign.html'
-	queryset = Campaign.objects.all()
+	model = models.Campaign
 	

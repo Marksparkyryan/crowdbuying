@@ -2,8 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
-app_name = "accounts"
+app_name = "campaigns"
 
 urlpatterns = [
-  path("<int:slug>", CampaignDetail.as_view()),
+  path("<int:slug>", views.CampaignDetail.as_view()),
 	]
