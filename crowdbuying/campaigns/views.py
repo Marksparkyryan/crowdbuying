@@ -7,7 +7,8 @@ from . import models
 
 
 class CampaignDetail(DetailView):
-	
-	template_name = 'campaigns/campaign.html'
-	model = models.Campaign
-	
+  
+  template_name = 'campaigns/campaign.html'
+  model = models.Campaign
+     
+      

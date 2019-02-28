@@ -1,0 +1,24 @@
+{% extends "landing/base.html" %}
+
+{% block content %}
+
+{% if user not in campaign.members.all%}
+<h1>
+  You're not a member of this campaign, {{ user}}!
+</h1>
+
+{% else %}
+    Campaign: {{ campaign.name}}<br/>
+    Members: <br/>{% for member in campaign.members.all %}{{ member }}<br/>{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

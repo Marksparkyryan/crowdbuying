@@ -29,17 +29,16 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-    <span class="navbar-text">
-      Navbar text with an inline element
-    </span>
-      {% if not user.is_authenticated %}
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" action="{% url "accounts:login" %}">Login</button>
-      {% else %}
-      <span class="navbar-text">
-      Welcome, {{ user.username }} !
-      </span>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
-      {% endif %}
+    {% if user.is_authenticated %}
+    <span class="navbar-text">Welcome, {{ user.username }} </span>
+      <form class="form-inline">
+        <a href="{% url "accounts:logout" %}" class="btn btn-outline-dark nav-item">Logout</a>
+  		</form>
+    {% else %}
+      <form class="form-inline" method="GET">
+        <a href="{% url "accounts:login" %}" class="btn btn-outline-dark nav-item">Log In</a>
+  		</form>
+    {% endif %}
   </div>
 </nav>
     {% block content %}
