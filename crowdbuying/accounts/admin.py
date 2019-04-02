@@ -7,20 +7,20 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import CustomerCreationForm
 
-from accounts.models import Customer, Campaign
+from accounts.models import Customer
 
 class UserAdmin(BaseUserAdmin):
 	add_form = CustomerCreationForm
 	
 	
 	list_display = ("username", "email", "campaign", "is_superuser")
-	list_filter = ("campaign",)
+	
 	
 	fieldsets = (
 		(None, {"fields":("username", "email", "campaign", "password",)}),
 		("Permissions", {"fields":("is_superuser",)})
 		)
-	search_fields = ("username", "email", "campaign",)
+	search_fields = ("username", "email", "campaign")
 	ordering = ("username", "email",)
 	filter_horizontal = ()
   

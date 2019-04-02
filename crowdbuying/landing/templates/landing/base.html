@@ -1,48 +1,57 @@
 <!doctype html>
+{% load static %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <link href="{% static 'landing/basestyle.css' %}" rel="stylesheet" type="text/css" />
+    <title>CrowdBuying</title>
+    
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+      <div class="container">
   <a class="navbar-brand" href="#">CrowdBuying</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "campaigns:campaigndetail" slug=user.campaign.slug %}">Campaign</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link" href="#">My Profile</a>
       </li>
+      {% endif %}
     </ul>
     {% if user.is_authenticated %}
-    <span class="navbar-text">Welcome, {{ user.username }} </span>
       <form class="form-inline">
-        <a href="{% url "accounts:logout" %}" class="btn btn-outline-dark nav-item">Logout</a>
+        <a href="{% url "accounts:logout" %}" class="nav-link">Logout</a>
   		</form>
     {% else %}
       <form class="form-inline" method="GET">
-        <a href="{% url "accounts:login" %}" class="btn btn-outline-dark nav-item">Log In</a>
+        <a href="{% url "accounts:login" %}" class="nav-link">Log In</a>
   		</form>
     {% endif %}
   </div>
+      </div>
 </nav>
+    
     {% block content %}
     {% endblock %}
+
+   
     
 
     <!-- Optional JavaScript -->
